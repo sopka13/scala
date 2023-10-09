@@ -1,6 +1,6 @@
-/*
-    Maps
-    val map_1 = Map[<key_type>, <value_type>]()
+/**
+ *  Maps
+ *  val map_1 = Map[<key_type>, <value_type>]()
  */
 
 import scala.collection.mutable   // For mutable map
@@ -22,13 +22,13 @@ object Maps {
     val var_1 = if (map_4.contains("first")) map_4("first") else 0
     val var_2 = map_4.getOrElse("first", 0)
 
-    val var_3 = map_4.get("first")  // Get or return none (return Option)
-    map_2 += (1 -> "First")         // Add pair to mutable map
-    map_6("zero") = 0               // Add pair to mutable map
-    map_6 += ("some_1" -> 12, "some_2" -> 13) // Add several pairs
-    map_6 -= "some_1"               // Remove one pair
-    val map_8 = map_3 + (0 -> "zero", 1 -> "firsted") // Create new map from immutable map
-    val map_9 = map_3 - 1     // Create new map from immutable map
+    val var_3 = map_4.get("first")                      // Get or return none (return Option)
+    map_2 += (1 -> "First")                             // Add pair to mutable map
+    map_6("zero") = 0                                   // Add pair to mutable map
+    map_6 += ("some_1" -> 12, "some_2" -> 13)           // Add several pairs
+    map_6 -= "some_1"                                   // Remove one pair
+    val map_8 = map_3 + (0 -> "zero", 1 -> "firsted")   // Create new map from immutable map
+    val map_9 = map_3 - 1                               // Create new map from immutable map
 
     // Traversing map elements
     for ((a, b) <- map_6) println(s"key: $a; value: $b")    // Keys and values
