@@ -11,6 +11,7 @@ object Lists {
     // Create
     val list_1 = List(1, 2, 3)
     val list_2 = 4 :: 5 :: 6 :: Nil
+    val list_23 = List.fill(4)("a") // List(a, a, a, a)
 
     // Concatenate
     val list_3 = list_1 ::: list_2  // => List(1, 2, 3, 4, 5, 6)
