@@ -24,6 +24,7 @@ object Lists {
     val elem_3 =    list_1.last                       // return last elem
     val list_13 =   list_1.tail                       // return new list without first elem
     val list_8 =    list_1.init                       // return new list without `last elem
+    val list_27 =   List(1, 1, 2, 3, 4).distinct      // remove duplicate elements
     val list_5 =    list_1.drop(1)                    // create new list without first elems
     val list_6 =    list_1.dropRight(1)               // create new list without last elems
     val list_14 =   list_1.take(1)                    // create new list with 1 first elems
@@ -34,11 +35,18 @@ object Lists {
     val bool_1 =    list_1.exists(s => s > 1)         // return bool if complete condition
     val list_7 =    list_1.filter(s => s > 1)         // return new list with elems satisfying the condition
     val list_10 =   list_1.filterNot(s => s < 1)      // return new list with elems not satisfying the condition
+    val list_25 =   List(List(1, 2), List(3, 4)).flatten  // return List(1, 2, 3, 4)
+    val list_26 =   List(List(1, 2), List(3, 4)).flatMap(ls => ls.map(_ * 2)) // return List(2, 4, 6, 8)
+    val list_24 =   list_1.withFilter(el => el > 20)  // return WithFilter entity
     val bool_2 =    list_1.forall(s => s < 10)        // return true if all elems satisfying the condition
+    val int_0 =     List(1, 2, 3).fold(0)((a, b) => a * b) // return (((0 * 3) * 2) * 1) or (((0 * 3) * 1) * 2) or (((0 * 1) * 3) * 2) ...
+    val int_1 =     List(1, 2, 3).foldLeft(0)((a, b) => a * b) // return (((0 * 1) * 2) * 3)
+    val int_2 =     List(1, 2, 3).foldRight(0)((a, b) => a * b) // return (((0 * 3) * 2) * 1)
     val bool_3 =    list_1.isEmpty                    // return true if list is empty
     val length_1 =  list_1.length                     // return length of list
     val list_9 =    list_1.map(s => s + 1)            // return new list where every elem exec func
     val str_1 =     list_1.mkString(", ")             // return new string with every elem separated received str
+    val lists_0 =   List(1, 2, 3, 4).partition(elem => elem % 2 == 0) // return (List(1, 3), List(2, 4))
     val list_11 =   list_1.reverse                    // return new reverse list
     val list_12 =   list_1.sortWith((s, t) => s > t)  // return sorted list
     val list_18 =   list_1.indices                    // return indices of list

@@ -64,10 +64,41 @@ object Syntax {
   func_5(1 to 5: _*)
 
   // Procedures
-  def proc_1                      { println("Hello") }
-  def proc_2(str: String)         { println(str) }
-  def proc_3(str: String): Unit = {
-    println(str)
-  }
+  def proc_1 { println("Hello") }
+  def proc_2(str: String) { println(str) }
+  def proc_3(str: String): Unit = println(str)
   def proc_4(str: String = "Hi")  { println(str) }
+
+  // Lazy values
+  lazy val someVal = throw new RuntimeException
+//  lazy var ll = 12 // ERROR
+
+  def callByName(n: => Int): Int = n * n * n
+
+  def someLongСomputation: Int = {
+    println("long computation")
+    2
+  }
+
+  println(callByName(someLongСomputation))
+
+  /** Output:
+   * long computation
+   * long computation
+   * long computation
+   * 8
+   */
+
+  def callByName_2(n: => Int): Int = {
+    lazy val lazyVal = n
+    lazyVal * lazyVal * lazyVal
+  }
+
+  println(callByName_2(someLongСomputation))
+
+  /** Output:
+   * long computation
+   * 8
+   */
+
 }
