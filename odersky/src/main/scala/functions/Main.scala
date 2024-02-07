@@ -8,6 +8,7 @@ object Main {
   def main(args: Array[String]): Unit = {
     // Fixed number of args
     def func_01(arg: Int): Unit = println(arg)
+
     // Variable number of args
     def func_02(args: Int*): Unit = args.foreach(arg => println(s"$arg, "))
     val func_03 = (x: Int) => x + 1

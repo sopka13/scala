@@ -15,6 +15,9 @@ object Sets {
     val set_2 = mutable.Set("first", "second")  // mutable set
 
     // Operations
-    // set_1 += "123"   // return new set(first, second, 123)
+    val set_3 = set_1 + "123"   // return new set(first, second, 123)
+    val set_4 = set_1 - "first" // return new set(second)
+    val length = set_3.size         // get size
+    val bul = set_4.contains("123") // search value
   }
 }

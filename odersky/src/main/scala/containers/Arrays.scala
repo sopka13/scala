@@ -42,6 +42,7 @@ object Arrays {
     arr_4.insertAll(3, Array(0, 0, 0))  // Insert several elements
     arr_4.remove(2)           // Remove one element and return it
     arr_4.remove(2, 3)        // Remove several elements and return Unit
+    arr_4.update(0, 10)       // Change value
     val arr = arr_4.toArray   // Create Array from ArrayBuffer
     val arrBuf = arr.toBuffer // Create ArrayBuffer from Array
 

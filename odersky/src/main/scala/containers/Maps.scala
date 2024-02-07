@@ -1,10 +1,11 @@
 package containers
 
-/*
-    Maps
-    val map_1 = Map[<key_type>, <value_type>]()
+/**
+ *  Maps
+ *  val map_1 = Map[<key_type>, <value_type>]()
  */
 
+import scala.annotation.tailrec
 import scala.collection.mutable   // For mutable map
 
 object Maps {
@@ -17,6 +18,7 @@ object Maps {
     val map_5 = Map(("first", 1), ("second", 2), ("third", 3))
     val map_6 = mutable.Map("first" -> 1, "second" -> 2, "third" -> 3)
     val map_7 = mutable.HashMap[Int, String]()
+    val map_11 = Map("one" -> 1, "two" -> 2).withDefaultValue(0)  // create with add default value
 
     // Operations
     val var_0 = map_4("first")      // Get value
@@ -24,13 +26,13 @@ object Maps {
     val var_1 = if (map_4.contains("first")) map_4("first") else 0
     val var_2 = map_4.getOrElse("first", 0)
 
-    val var_3 = map_4.get("first")  // Get or return none (return Option)
-    map_2 += (1 -> "First")         // Add pair to mutable map
-    map_6("zero") = 0               // Add pair to mutable map
-    map_6 += ("some_1" -> 12, "some_2" -> 13) // Add several pairs
-    map_6 -= "some_1"               // Remove one pair
-    val map_8 = map_3 + (0 -> "zero", 1 -> "firsted") // Create new map from immutable map
-    val map_9 = map_3 - 1     // Create new map from immutable map
+    val var_3 = map_4.get("first")                      // Get or return none (return Option)
+    map_2 += (1 -> "First")                             // Add pair to mutable map
+    map_6("zero") = 0                                   // Add pair to mutable map
+    map_6 += ("some_1" -> 12, "some_2" -> 13)           // Add several pairs
+    map_6 -= "some_1"                                   // Remove one pair
+    val map_8 = map_3 + (0 -> "zero", 1 -> "firsted")   // Create new map from immutable map
+    val map_9 = map_3 - 1                               // Create new map from immutable map
 
     // Traversing map elements
     for ((a, b) <- map_6) println(s"key: $a; value: $b")    // Keys and values
@@ -52,5 +54,6 @@ object Maps {
     val zipArr = a_1.zip(a_2)     // Array(("1", "first"), ("2", "second"), ("3", "third"))
     val mapFromTwoArr = a_1.zip(a_2).toMap
     for (elem <- mapFromTwoArr) println(s"key: ${elem._1}; value: ${elem._2}")
+
   }
 }
