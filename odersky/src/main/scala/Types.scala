@@ -1,3 +1,6 @@
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+
 object Types extends App {
 
   val p_0 = new Regular(false)
@@ -142,4 +145,93 @@ object Temp extends App {
     type T = Int
     def method: T = 42
   }
+}
+
+object GeneralizedTypeConstraints {
+  trait Database
+  class SqlDb extends Database
+  class NoSqlDb extends Database
+  class SomeSqlDb extends SqlDb
+
+  def saveToDb[T <: Database](db: T): Unit = {
+    println(s"saved to ${db.getClass.getSimpleName}")
+  }
+
+  val sqlDb = new SqlDb
+  val noSql = new NoSqlDb
+  val nSqlDb = new SomeSqlDb
+
+  saveToDb(sqlDb)
+
+  def saveToSqlDb[T <: Database](db: T)(implicit ev: T =:= SqlDb): Unit = {
+    println(s"saved to ${db.getClass.getSimpleName}")
+  }
+
+  def saveToSqlDb_2[T <: Database](db: T)(implicit ev: T <:< SqlDb): Unit = {
+    println(s"saved to ${db.getClass.getSimpleName}")
+  }
+
+  def saveToNoSqlDb[T <: Database](db: T)(implicit ev: T =:= NoSqlDb): Unit = {
+    println(s"saved to ${db.getClass.getSimpleName}")
+  }
+
+//  saveToSqlDb(noSql)// ERROR
+//  saveToSqlDb(nSqlDb)//ERROR
+  saveToSqlDb_2(nSqlDb)
+}
+
+trait SelfType_0 {
+  def f_0: String
+  def f_1: Int
+  def f_2: Float
+}
+
+trait Service {
+  self: SelfType_0 =>
+
+  def serviceDef = {
+    f_0
+    f_1
+    f_2
+  }
+}
+
+class Controller {
+  sf: Service =>
+
+  def transform = {
+    serviceDef
+    sf.serviceDef
+  }
+}
+
+// Use SelfTypes
+object SomeObj extends App {
+  val ff = new Controller with Service with SelfType_0 {
+    override def f_0: String = "First"
+    override def f_1: Int = 1
+    override def f_2: Float = 2.0f
+  }
+
+//  val kk = new Controller // ERROR
+//  val kk = new Controller with Service // ERROR
+
+
+  trait TestEnvironment {
+    val testName: String
+  }
+
+  class TestExecutor {
+    test: TestEnvironment =>
+    def execute(): Unit = {
+      println(s"Executing ${test.testName }")
+    }
+  }
+
+  val aTest: TestExecutor = new TestExecutor with TestEnvironment {
+    override val testName: String = "T-test"
+  }
+
+  aTest.execute()
+
 }

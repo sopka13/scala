@@ -1,7 +1,7 @@
-import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
 
 import scala.concurrent.{Await, Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Random, Success, Try}
 
 object Futures extends App {
@@ -9,6 +9,36 @@ object Futures extends App {
     Thread.sleep(1000)
     "123"
   }
+
+  val num = 1
+  def compute(n: Int) = Future(n)
+  val result: Future[List[Int]] = {
+    val f = Promise[List[Int]]
+    compute(num).onComplete {
+      case Success(a) =>
+        compute(a).onComplete {
+          case Success(b) =>
+            compute(b).onComplete {
+              case Success(c) =>
+                f.success(List(a, b, c))
+              case _ =>
+            }
+          case _ =>
+        }
+        case _ =>
+    }
+    f.future
+  }
+
+  val result_d: Future[List[Int]] = for {
+    v1 <- compute(num)
+    v2 <- compute(v1)
+    v3 <- compute(v2)
+  } yield List(v1, v2, v3)
+  //      .onComplete { res_2 =>
+//        case Success(res) => List(res._1, res._2, res._3)
+//        case _ => List()
+//      }
 
   // Create
   val f_0: Future[String] = Future(slowComputation)
@@ -27,7 +57,7 @@ object Futures extends App {
   val result_4: Unit              = f_0.foreach(println)          // Add actions for complete result
   val result_5: Unit              = f_0.onComplete { // Add actions after complete future
     case Failure(exception) =>
-    case Success(value) =>
+    case Success(value) => println(s"$value")
   }
   val result_6: Unit              = f_0.map { res =>  // Add action after complete future. Return same exception if f_0 return failure
     if (res.isEmpty) ()
